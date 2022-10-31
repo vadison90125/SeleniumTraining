@@ -26,7 +26,7 @@ namespace ShopModel
             var actualResult = cart1.CalculateTotal();
             var expectedResult = 59.4;
 
-            Assert.AreEqual(expectedResult, actualResult);
+            Assert.AreEqual(expectedResult, actualResult, "Total discount was calculated incorrectly");
         }
 
 
@@ -48,7 +48,7 @@ namespace ShopModel
             var actualResult = cart2.CalculateTotal();
             var expectedResult = 57;
 
-            Assert.AreEqual(expectedResult, actualResult);
+            Assert.AreEqual(expectedResult, actualResult, "Total discount was calculated incorrectly");
         }
 
 
@@ -63,7 +63,7 @@ namespace ShopModel
 
             var actualResult = products[0].ProductID.Equals(products[1].ProductID);
 
-            Assert.IsTrue(actualResult);
+            Assert.IsTrue(actualResult, "Products is not equal");
         }
 
 
@@ -80,7 +80,7 @@ namespace ShopModel
             var actualResult = products[0].ToString();
             expectedResult = "Product ID: 1, Name: Lays, Price: 20";
 
-            Assert.AreEqual(actualResult, expectedResult);
+            Assert.AreEqual(actualResult, expectedResult, "Not string or string not same");
         }
 
 
@@ -98,7 +98,7 @@ namespace ShopModel
             var actualResult = calculator.ValueCalc(products);
             var expectedResult = 60;
 
-            Assert.AreEqual(expectedResult, actualResult);
+            Assert.AreEqual(expectedResult, actualResult, "Total Price was calculated incorrectly");
         }
 
 
@@ -110,7 +110,7 @@ namespace ShopModel
             var actualResult = discount1.PercentageValue(20);
             var expectedResult = 19.8;
 
-            Assert.AreEqual(expectedResult, actualResult);
+            Assert.AreEqual(expectedResult, actualResult, "Percent was calculated for Discount_1 incorrectly");
         }
 
 
@@ -122,7 +122,7 @@ namespace ShopModel
             decimal actualResult = discount5.PercentageValue(40);
             decimal expectedResult = 38;
 
-            Assert.AreEqual(expectedResult, actualResult);
+            Assert.AreEqual(expectedResult, actualResult, "Percent was calculated for Discount_5 incorrectly");
         }
 
     }
