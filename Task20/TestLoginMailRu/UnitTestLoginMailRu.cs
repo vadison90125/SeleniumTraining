@@ -13,9 +13,9 @@ namespace TestLoginMailRu
 
         private readonly By _enterMailButton = By.XPath("//a[contains(text(),'Почта')]");
         private readonly By _nickEditBox = By.XPath("//input[@name='username']");
-        private readonly By _enterPasswordButton = By.ClassName("innerTextWrapper-0-2-90");
+        private readonly By _enterPasswordButton = By.ClassName("contentWithTextBefore-0-2-93");
         private readonly By _passEditBox = By.XPath("//input[@name='password']");
-        private readonly By _enterSignInButton = By.ClassName("innerTextWrapper-0-2-90");
+        private readonly By _enterSignInButton = By.XPath("//span[text()='Sign in']");
         private readonly By _nameMail = By.XPath("//span[contains(text(),'test_vadim_mail_1@mail.ru')]");
 
         [SetUp]
@@ -37,14 +37,14 @@ namespace TestLoginMailRu
             var nickEditBox = driver.FindElement(_nickEditBox);
             nickEditBox.SendKeys(name);
             
-            var enterPasswordButton = driver.FindElements(_enterPasswordButton)[0];
+            var enterPasswordButton = driver.FindElement(_enterPasswordButton);
             enterPasswordButton.Click();
 
             Thread.Sleep(1000);
             var passEditBox = driver.FindElement(_passEditBox);
             passEditBox.SendKeys(password);
 
-            var enterSignInButton = driver.FindElements(_enterSignInButton)[0];
+            var enterSignInButton = driver.FindElement(_enterSignInButton);
             enterSignInButton.Click();
             
             Thread.Sleep(1000);
