@@ -54,6 +54,7 @@ namespace TestParametrized
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             var nameMailRu = wait.Until(d => d.FindElement(_nameMail));  // Explicit waiter
 
+
             var actualNameMail = nameMailRu.Text;
 
             Assert.That(actualNameMail, Is.EqualTo(nameMail), "Mail name is incorrect");
