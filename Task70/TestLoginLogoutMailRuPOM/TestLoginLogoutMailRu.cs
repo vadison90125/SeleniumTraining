@@ -24,7 +24,6 @@ namespace TestLoginLogoutMailRuPOM
         public void TestLogin()
         {
             IWebDriver driver = new ChromeDriver();
-
             OpenMailRu openMailRu = new OpenMailRu(driver);
             openMailRu.OpenStartPage();
 
@@ -50,13 +49,8 @@ namespace TestLoginLogoutMailRuPOM
         public void TestLogout()
         {
             IWebDriver driver = new ChromeDriver();
-
             OpenMailRu openMailRu = new OpenMailRu(driver);
             openMailRu.OpenStartPage();
-
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            driver.Url = "https:\\www.mail.ru";
-            driver.Manage().Window.Maximize();
 
             StartPage startPage = new StartPage(driver);
             startPage.LoginPage();
