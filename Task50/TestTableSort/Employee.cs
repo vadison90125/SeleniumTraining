@@ -1,4 +1,4 @@
-﻿namespace TableSort
+﻿namespace TestTableSort
 {
     class Employee
     {
@@ -8,7 +8,7 @@
         private readonly int age;
         private readonly int salary;
 
-        public Employee (string name, string position, string office, int age, int salary)
+        public Employee(string name, string position, string office, int age, int salary)
         {
             this.name = name;
             this.position = position;
@@ -22,7 +22,7 @@
             var selectedPeople = from p in list
                                  where p.age > age && p.salary > salary
                                  select p;
-            
+
             List<string> result = new List<string>();
 
             foreach (Employee person in selectedPeople)

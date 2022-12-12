@@ -20,7 +20,7 @@ namespace TestMultiselect
         }
 
         [Test]
-        public void Multiselect()
+        public void MultiselectTest()
         {
             IWebElement element = driver.FindElement(elementMultiselect);
             SelectElement select = new(element);

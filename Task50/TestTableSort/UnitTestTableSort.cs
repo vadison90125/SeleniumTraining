@@ -1,25 +1,31 @@
-﻿using OpenQA.Selenium;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
-namespace TableSort
+namespace TestTableSort
 {
-    class Program
+    public class TestsTableSort
     {
-        static void Main(string[] args)
+        IWebDriver driver;
+
+        [SetUp]
+        public void Setup()
         {
-            IWebDriver driver;
             driver = new ChromeDriver();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             driver.Url = "https://demo.seleniumeasy.com/table-sort-search-demo.html";
             driver.Manage().Window.Maximize();
+        }
 
+        [Test]
+        public void TableSortTest()
+        {
             IWebElement element = driver.FindElement(By.XPath("//select[@name='example_length']"));
             SelectElement select = new SelectElement(element);
             select.SelectByText("10");
- 
+
             List<Employee> list = new List<Employee>();
-            
+
             IWebElement color = driver.FindElement(By.CssSelector(".next"));
             string colorID = color.GetCssValue("color");
 
@@ -50,16 +56,18 @@ namespace TableSort
                 colorID = colorNew.GetCssValue("color");
             }
             
-            Console.WriteLine();
-            Console.WriteLine("----------------------------------------------------------");
-
             var result = Employee.SortEmployee(40, 100000, list);
             foreach (var res in result)
             {
-                Console.WriteLine(res);
+                TestContext.WriteLine(res);
             }
 
-            Console.WriteLine("----------------------------------------------------------");
+            Assert.Pass();
+        }
+        
+        [TearDown]
+        public void TearDown()
+        {
             driver.Quit();
         }
     }

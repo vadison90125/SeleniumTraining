@@ -31,7 +31,7 @@ namespace TestParametrized
         }
 
         [Test, TestCaseSource(nameof(LoginCases))]
-        public void TestLoginMailRu(string login, string pass, string nameMail)
+        public void LoginMailRuTest(string login, string pass, string nameMail)
         {
             var enterMailButton = driver.FindElement(_enterMailButton);
             enterMailButton.Click();
@@ -53,7 +53,6 @@ namespace TestParametrized
 
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             var nameMailRu = wait.Until(d => d.FindElement(_nameMail));  // Explicit waiter
-
 
             var actualNameMail = nameMailRu.Text;
 

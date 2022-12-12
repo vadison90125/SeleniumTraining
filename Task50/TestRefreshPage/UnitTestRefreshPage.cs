@@ -1,18 +1,24 @@
-﻿using OpenQA.Selenium;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-namespace RefreshPage
+namespace TestRefreshPage
 {
-    class Program
+    public class TestsRefreshPage
     {
-        static void Main(string[] args)
+        IWebDriver driver;
+
+        [SetUp]
+        public void Setup()
         {
-            IWebDriver driver;
             driver = new ChromeDriver();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             driver.Url = "https://demo.seleniumeasy.com/bootstrap-download-progress-demo.html";
             driver.Manage().Window.Maximize();
+        }
 
+        [Test]
+        public void RefreshPageTest()
+        {
             IWebElement downloadButton = driver.FindElement(By.CssSelector("#cricle-btn"));
             downloadButton.Click();
             IWebElement percent = driver.FindElement(By.CssSelector(".percenttext"));
@@ -24,7 +30,12 @@ namespace RefreshPage
             }
             driver.Navigate().Refresh();
 
-            Thread.Sleep(3000);
+            Assert.Pass();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
             driver.Quit();
         }
     }

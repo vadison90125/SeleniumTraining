@@ -7,11 +7,12 @@ namespace TestLoginLogoutMailRuPOM
     public class TestsLoginLogoutMailRu
     {
         IWebDriver driver;
-
+        
         const string expectedNameMail = "test_vadim_mail_1@mail.ru";
 
         readonly string email = "test_vadim_mail_1";
         readonly string password = "xpathidclassname";
+
 
         [SetUp]
         public void Setup()
@@ -22,10 +23,13 @@ namespace TestLoginLogoutMailRuPOM
         }
 
         [Test]
-        public void TestLogin()
+        public void LoginTest()
         {
             StartPage startPage = new StartPage(driver);
             startPage.LoginPage();
+
+            Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
+            ss.SaveAsFile("Screenshot.png", ScreenshotImageFormat.Png);
 
             SwitchToTab switchToTab = new SwitchToTab(driver);
             switchToTab.SwitchToLastBrowserTab();
@@ -40,7 +44,7 @@ namespace TestLoginLogoutMailRuPOM
         }
 
         [Test]
-        public void TestLogout()
+        public void LogoutTest()
         {
             StartPage startPage = new StartPage(driver);
             startPage.LoginPage();

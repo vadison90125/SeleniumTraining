@@ -30,7 +30,7 @@ namespace TestAlerts
         }
 
         [Test]
-        public void AlertBox()
+        public void AlertBoxTest()
         {
             IWebElement _buttonAlert = driver.FindElement(buttonAlert);
             _buttonAlert.Click();
@@ -38,11 +38,11 @@ namespace TestAlerts
             string textOnAlert = alert.Text;
             alert.Accept();
 
-            Assert.That(textOnAlert, Is.EqualTo(expectedTextAlertBox));
+            Assert.That(textOnAlert, Is.EqualTo(expectedTextAlertBox), "Text of Alert is not corrected");
         }
 
         [Test]
-        public void ConfirmBoxOk()
+        public void ConfirmBoxOkTest()
         {
             IWebElement _buttonConfirm = driver.FindElement(buttonConfirm);
             _buttonConfirm.Click();
@@ -51,11 +51,11 @@ namespace TestAlerts
             IWebElement TextConfirmOk = driver.FindElement(textConfirm);
             string actualTextConfirmOk = TextConfirmOk.Text;
 
-            Assert.That(actualTextConfirmOk, Is.EqualTo(expectedTextConfirmOk));
+            Assert.That(actualTextConfirmOk, Is.EqualTo(expectedTextConfirmOk), "Text of Confirm is not corrected");
         }
 
         [Test]
-        public void ConfirmBoxCancel()
+        public void ConfirmBoxCancelTest()
         {
             IWebElement _buttonConfirm = driver.FindElement(buttonConfirm);
             _buttonConfirm.Click();
@@ -64,11 +64,11 @@ namespace TestAlerts
             IWebElement TextConfirmCancel = driver.FindElement(textConfirm);
             string actualTextConfirmCancel = TextConfirmCancel.Text;
 
-            Assert.That(actualTextConfirmCancel, Is.EqualTo(expectedTextConfirmCancel));
+            Assert.That(actualTextConfirmCancel, Is.EqualTo(expectedTextConfirmCancel), "Text of Confirm is not corrected");
         }
 
         [Test]
-        public void PromtBox()
+        public void PromtBoxTest()
         {
             IWebElement _buttonPrompt = driver.FindElement(buttonPrompt);
             _buttonPrompt.Click();
@@ -78,7 +78,7 @@ namespace TestAlerts
             IWebElement TextPrompt = driver.FindElement(textPrompt);
             string actualTextPrompt = TextPrompt.Text;
             
-            Assert.That(actualTextPrompt, Is.EqualTo(expectedTextPrompt));
+            Assert.That(actualTextPrompt, Is.EqualTo(expectedTextPrompt), "Text of Prompt is not corrected");
         }
 
         [TearDown]
