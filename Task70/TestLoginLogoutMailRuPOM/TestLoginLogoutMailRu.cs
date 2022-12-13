@@ -1,11 +1,23 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using LoginLogoutMailRuPOM;
+using Allure.Net.Commons;
+using NUnit.Allure.Core;
+using NUnit.Allure.Attributes;
 
 namespace TestLoginLogoutMailRuPOM
 {
+
+    [TestFixture(Author = "Vadim", Description = "Login/Logout")]
+    [AllureNUnit]
     public class TestsLoginLogoutMailRu
     {
+        [OneTimeSetUp]
+        public void ClearResultsDir()
+        {
+            AllureLifecycle.Instance.CleanupResultDirectory();
+        }
+
         IWebDriver driver;
         
         const string expectedNameMail = "test_vadim_mail_1@mail.ru";
@@ -23,13 +35,17 @@ namespace TestLoginLogoutMailRuPOM
         }
 
         [Test]
+        [AllureTag("NUnit", "Debug")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureFeature("Core")]
+        [AllureId(123)]
         public void LoginTest()
         {
             StartPage startPage = new StartPage(driver);
             startPage.LoginPage();
 
-            Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
-            ss.SaveAsFile("Screenshot.png", ScreenshotImageFormat.Png);
+            //Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
+            //ss.SaveAsFile("Screenshot.png", ScreenshotImageFormat.Png);
 
             SwitchToTab switchToTab = new SwitchToTab(driver);
             switchToTab.SwitchToLastBrowserTab();
@@ -44,6 +60,7 @@ namespace TestLoginLogoutMailRuPOM
         }
 
         [Test]
+        [AllureSeverity(SeverityLevel.critical)]
         public void LogoutTest()
         {
             StartPage startPage = new StartPage(driver);

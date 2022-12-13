@@ -22,4 +22,10 @@
     <ProjectReference Include="..\LoginLogoutMailRuPOM\LoginLogoutMailRuPOM.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="allureConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
