@@ -9,10 +9,10 @@ using NUnit.Framework.Interfaces;
 namespace TestFinalTaskSelenium
 {
 
-/// <summary>
-/// Tests in Local/Docker
-/// </summary>
-/// 
+    /// <summary>
+    /// Tests in Local/Docker
+    /// </summary>
+    /// 
 
     [TestFixture(Author = "Vadim", Description = "Local/Docker")]
     [AllureNUnit]
@@ -105,7 +105,7 @@ namespace TestFinalTaskSelenium
         [AllureTag("NUnit", "Selenium")]
         [AllureSeverity(SeverityLevel.critical)]
         [AllureFeature("Local/Docker")]
-        public void VerifyAddedToCartAP3AP4Test()
+        public void VerifyAddedToWhishlistAP3AP4Test()
         {
             StartPage startPage = new StartPage(driver);
             startPage.LoginPage();
@@ -147,7 +147,7 @@ namespace TestFinalTaskSelenium
             if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
             {
                 var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-                var filename = TestContext.CurrentContext.Test.MethodName + "_screenshot_" + DateTime.Now + ".png";
+                var filename = TestContext.CurrentContext.Test.MethodName + "_screenshot_" + DateTime.Now.ToShortDateString() + ".png";
                 var path = Path.Combine() + filename;
                 screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
                 TestContext.AddTestAttachment(path);
@@ -159,11 +159,9 @@ namespace TestFinalTaskSelenium
         }
     }
 
-
-
-/// <summary>
-/// Tests in Cloud
-/// </summary>
+    /// <summary>
+    /// Tests in Cloud
+    /// </summary>
 
     [TestFixture(Author = "Vadim", Description = "Cloud")]
     [AllureNUnit]
@@ -246,7 +244,7 @@ namespace TestFinalTaskSelenium
         [AllureTag("NUnit", "Selenium")]
         [AllureSeverity(SeverityLevel.critical)]
         [AllureFeature("Cloud")]
-        public void VerifyAddedToCartAP3AP4Test()
+        public void VerifyAddedToWhishlistAP3AP4Test()
         {
             StartPage startPage = new StartPage(driver);
             startPage.LoginPage();
@@ -288,7 +286,7 @@ namespace TestFinalTaskSelenium
             if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
             {
                 var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-                var filename = TestContext.CurrentContext.Test.MethodName + "_screenshot_" + DateTime.Now + ".png";
+                var filename = TestContext.CurrentContext.Test.MethodName + "_screenshot_" + DateTime.Now.ToShortDateString() + ".png";
                 var path = Path.Combine() + filename;
                 screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
                 TestContext.AddTestAttachment(path);

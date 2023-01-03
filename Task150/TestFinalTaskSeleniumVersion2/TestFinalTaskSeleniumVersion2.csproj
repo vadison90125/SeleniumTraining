@@ -23,4 +23,10 @@
     <ProjectReference Include="..\FinalTaskSelenium\FinalTaskSelenium.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="UnitTestFinalTaskSeleniumVersion2.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
 </Project>

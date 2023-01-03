@@ -9,12 +9,11 @@ using NUnit.Framework.Interfaces;
 namespace TestFinalTaskSelenium
 {
 
-/// <summary>
-/// Tests in Local/Docker
-/// </summary>
-/// 
+    /// <summary>
+    /// Tests in Local/Docker
+    /// </summary>
+    /// 
 
-    [TestFixture]
     [TestFixture(Author = "Vadim", Description = "Local/Docker")]
     [AllureNUnit]
     public class LocalDockerTests
@@ -32,12 +31,7 @@ namespace TestFinalTaskSelenium
 
         IWebDriver driver;
 
-        [Test]
-        [TestCase("ChromeLocal")]
-        [TestCase("FirefoxLocal")]
-        [TestCase("ChromeDocker")]
-        [TestCase("FirefoxDocker")]
-        [Parallelizable(ParallelScope.All)]
+        [Test, TestCaseSource(nameof(LoginCases))]
         [AllureTag("NUnit", "Selenium")]
         [AllureSeverity(SeverityLevel.critical)]
         [AllureFeature("Local/Docker")]
@@ -61,7 +55,7 @@ namespace TestFinalTaskSelenium
                     driver = Browser.BrowserDockerSelect(browser);
                     break;
             }
-            
+
             OpenStartPage openStartPage = new OpenStartPage(driver);
             openStartPage.OpenFirstPage();
 
@@ -78,16 +72,9 @@ namespace TestFinalTaskSelenium
             string actualResult = accountCreatedPage.Text();
 
             Assert.That(actualResult, Is.EqualTo(expectedResultAP1), "Account is not created");
-
-            QuitDriver quitDriver = new QuitDriver(driver);
-            quitDriver.QuitWebDriver();
         }
 
-        [Test]
-        [TestCase("ChromeLocal")]
-        [TestCase("FirefoxLocal")]
-        [TestCase("ChromeDocker")]
-        [TestCase("FirefoxDocker")]
+        [Test, TestCaseSource(nameof(LoginCases))]
         [AllureTag("NUnit", "Selenium")]
         [AllureSeverity(SeverityLevel.critical)]
         [AllureFeature("Local/Docker")]
@@ -125,20 +112,13 @@ namespace TestFinalTaskSelenium
             string actualResult = loggedName.LoggedName();
 
             Assert.That(actualResult, Is.EqualTo(expectedResultAP2), "Account is incorrected");
-
-            QuitDriver quitDriver = new QuitDriver(driver);
-            quitDriver.QuitWebDriver();
         }
 
-        [Test]
-        [TestCase("ChromeLocal")]
-        [TestCase("FirefoxLocal")]
-        [TestCase("ChromeDocker")]
-        [TestCase("FirefoxDocker")]
+        [Test, TestCaseSource(nameof(LoginCases))]
         [AllureTag("NUnit", "Selenium")]
         [AllureSeverity(SeverityLevel.critical)]
         [AllureFeature("Local/Docker")]
-        public void VerifyAddedToCartAP3AP4Test(string browser)
+        public void VerifyAddedToWhishlistAP3AP4Test(string browser)
         {
             switch (browser)
             {
@@ -172,26 +152,9 @@ namespace TestFinalTaskSelenium
             string actualResult = wishlist.WishlistSelect();
 
             Assert.That(actualResult, Is.EqualTo(expectedResultAP3AP4), "Whishlist is not present");
-
-            if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
-            {
-                var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-                var filename = TestContext.CurrentContext.Test.MethodName + "_screenshot_" + DateTime.Now + ".png";
-                var path = Path.Combine() + filename;
-                screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
-                TestContext.AddTestAttachment(path);
-                AllureLifecycle.Instance.AddAttachment(filename, "image/png", path);
-            }
-
-            QuitDriver quitDriver = new QuitDriver(driver);
-            quitDriver.QuitWebDriver();
         }
 
-        [Test]
-        [TestCase("ChromeLocal")]
-        [TestCase("FirefoxLocal")]
-        [TestCase("ChromeDocker")]
-        [TestCase("FirefoxDocker")]
+        [Test, TestCaseSource(nameof(LoginCases))]
         [AllureTag("NUnit", "Selenium")]
         [AllureSeverity(SeverityLevel.critical)]
         [AllureFeature("Local/Docker")]
@@ -215,7 +178,7 @@ namespace TestFinalTaskSelenium
                     driver = Browser.BrowserDockerSelect(browser);
                     break;
             }
-            
+
             OpenStartPage openStartPage = new OpenStartPage(driver);
             openStartPage.OpenFirstPage();
 
@@ -233,20 +196,38 @@ namespace TestFinalTaskSelenium
             cartPage.DeleteLogin();
 
             Assert.That(count, Is.EqualTo(expectedResultAP5), "Products count are incorrect");
+        }
+        
+        static object[] LoginCases =
+            {
+                new object[] {"ChromeLocal"},
+                new object[] {"FirefoxLocal"},
+                new object[] {"ChromeDocker"},
+                new object[] {"FirefoxDocker" }
+            };
+
+        [TearDown]
+        public void TearDown()
+        {
+            if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
+            {
+                var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+                var filename = TestContext.CurrentContext.Test.MethodName + "_screenshot_" + DateTime.Now.ToShortDateString() + ".png";
+                var path = Path.Combine() + filename;
+                screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
+                TestContext.AddTestAttachment(path);
+                AllureLifecycle.Instance.AddAttachment(filename, "image/png", path);
+            }
 
             QuitDriver quitDriver = new QuitDriver(driver);
             quitDriver.QuitWebDriver();
         }
     }
 
+    /// <summary>
+    /// Tests in Cloud
+    /// </summary>
 
-
-
-/// <summary>
-/// Tests in Cloud
-/// </summary>
-
-    [TestFixture]
     [TestFixture(Author = "Vadim", Description = "Cloud")]
     [AllureNUnit]
     public class CloudTests
@@ -264,9 +245,7 @@ namespace TestFinalTaskSelenium
 
         RemoteWebDriver driver;
 
-        [Test]
-        [TestCase("ChromeCloud")]
-        [TestCase("FirefoxCloud")]
+        [Test, TestCaseSource(nameof(LoginCases))]
         [AllureTag("NUnit", "Selenium")]
         [AllureSeverity(SeverityLevel.critical)]
         [AllureFeature("Cloud")]
@@ -299,14 +278,9 @@ namespace TestFinalTaskSelenium
             string actualResult = accountCreatedPage.Text();
 
             Assert.That(actualResult, Is.EqualTo(expectedResultAP1), "Account is not created");
-
-            QuitDriver quitDriver = new QuitDriver(driver);
-            quitDriver.QuitWebDriver();
         }
 
-        [Test]
-        [TestCase("ChromeCloud")]
-        [TestCase("FirefoxCloud")]
+        [Test, TestCaseSource(nameof(LoginCases))]
         [AllureTag("NUnit", "Selenium")]
         [AllureSeverity(SeverityLevel.critical)]
         [AllureFeature("Cloud")]
@@ -336,18 +310,13 @@ namespace TestFinalTaskSelenium
             string actualResult = loggedName.LoggedName();
 
             Assert.That(actualResult, Is.EqualTo(expectedResultAP2), "Account is incorrected");
-
-            QuitDriver quitDriver = new QuitDriver(driver);
-            quitDriver.QuitWebDriver();
         }
 
-        [Test]
-        [TestCase("ChromeCloud")]
-        [TestCase("FirefoxCloud")]
+        [Test, TestCaseSource(nameof(LoginCases))]
         [AllureTag("NUnit", "Selenium")]
         [AllureSeverity(SeverityLevel.critical)]
         [AllureFeature("Cloud")]
-        public void VerifyAddedToCartAP3AP4Test(string browser)
+        public void VerifyAddedToWhishlistAP3AP4Test(string browser)
         {
             switch (browser)
             {
@@ -373,24 +342,9 @@ namespace TestFinalTaskSelenium
             string actualResult = wishlist.WishlistSelect();
 
             Assert.That(actualResult, Is.EqualTo(expectedResultAP3AP4), "Whishlist is not present");
-
-            if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
-            {
-                var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-                var filename = TestContext.CurrentContext.Test.MethodName + "_screenshot_" + DateTime.Now + ".png";
-                var path = Path.Combine() + filename;
-                screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
-                TestContext.AddTestAttachment(path);
-                AllureLifecycle.Instance.AddAttachment(filename, "image/png", path);
-            }
-
-            QuitDriver quitDriver = new QuitDriver(driver);
-            quitDriver.QuitWebDriver();
         }
 
-        [Test]
-        [TestCase("ChromeCloud")]
-        [TestCase("FirefoxCloud")]
+        [Test, TestCaseSource(nameof(LoginCases))]
         [AllureTag("NUnit", "Selenium")]
         [AllureSeverity(SeverityLevel.critical)]
         [AllureFeature("Cloud")]
@@ -424,6 +378,26 @@ namespace TestFinalTaskSelenium
             cartPage.DeleteLogin();
 
             Assert.That(count, Is.EqualTo(expectedResultAP5), "Products count are incorrect");
+        }
+
+        static object[] LoginCases =
+            {
+                new object[] {"ChromeCloud"},
+                new object[] {"FirefoxCloud"}
+            };
+
+        [TearDown]
+        public void TearDown()
+        {
+            if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
+            {
+                var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+                var filename = TestContext.CurrentContext.Test.MethodName + "_screenshot_" + DateTime.Now.ToShortDateString() + ".png";
+                var path = Path.Combine() + filename;
+                screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
+                TestContext.AddTestAttachment(path);
+                AllureLifecycle.Instance.AddAttachment(filename, "image/png", path);
+            }
 
             QuitDriver quitDriver = new QuitDriver(driver);
             quitDriver.QuitWebDriver();
